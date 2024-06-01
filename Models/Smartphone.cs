@@ -1,26 +1,94 @@
 namespace DesafioPOO.Models
 {
+
+    /// <summary>
+    /// Represents a generic smartphone with basic functionalities.
+    /// </summary>
     public abstract class Smartphone
     {
-        public string Numero { get; set; }
-        // TODO: Implementar as propriedades faltantes de acordo com o diagrama
+        // Properties
 
-        public Smartphone(string numero)
+        /// <summary>
+        /// Gets the phone number associated with the smartphone.
+        /// </summary>
+        public string Number { get; protected set; }
+
+        /// <summary>
+        /// Gets the model of the smartphone.
+        /// </summary>
+        protected string Model { get; }
+
+        /// <summary>
+        /// Gets the IMEI (International Mobile Equipment Identity) number of the smartphone.
+        /// </summary>
+        protected string Imei { get; }
+
+        /// <summary>
+        /// Gets the memory capacity of the smartphone in gigabytes.
+        /// </summary>
+        protected int Memory { get; }
+
+        // Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Smartphone"/> class with the specified number, model, IMEI, and memory.
+        /// </summary>
+        /// <param name="number">The phone number.</param>
+        /// <param name="model">The model of the smartphone.</param>
+        /// <param name="imei">The IMEI number.</param>
+        /// <param name="memory">The memory capacity in gigabytes.</param>
+        /// <exception cref="ArgumentException">Thrown when any parameter is null, whitespace, or invalid.</exception>
+        public Smartphone(string number, string model, string imei, int memory)
         {
-            Numero = numero;
-            // TODO: Passar os parâmetros do construtor para as propriedades
+            if (string.IsNullOrWhiteSpace(number))
+                throw new ArgumentException("Invalid number", nameof(number));
+
+            if (string.IsNullOrWhiteSpace(model))
+                throw new ArgumentException("Invalid model", nameof(model));
+
+            if (string.IsNullOrWhiteSpace(imei))
+                throw new ArgumentException("Invalid IMEI", nameof(imei));
+
+            if (memory <= 0)
+                throw new ArgumentException("Invalid memory", nameof(memory));
+
+            Number = number;
+            Model = model;
+            Imei = imei;
+            Memory = memory;
         }
 
-        public void Ligar()
+        // Methods
+
+        /// <summary>
+        /// Makes a call from the smartphone.
+        /// </summary>
+        public void MakeCall()
         {
-            Console.WriteLine("Ligando...");
+            Console.WriteLine("Making a call...");
         }
 
-        public void ReceberLigacao()
+        /// <summary>
+        /// Turns off the smartphone.
+        /// </summary>
+        public void TurnOff()
         {
-            Console.WriteLine("Recebendo ligação...");
+            Console.WriteLine("Turning off...");
         }
 
-        public abstract void InstalarAplicativo(string nomeApp);
+        /// <summary>
+        /// Receives a call on the smartphone.
+        /// </summary>
+        public void ReceiveCall()
+        {
+            Console.WriteLine("Receiving a call...");
+        }
+
+        /// <summary>
+        /// Installs an application on the smartphone.
+        /// This method must be implemented by derived classes.
+        /// </summary>
+        /// <param name="appName">The name of the application to install.</param>
+        public abstract void InstallApp(string appName);
     }
 }
